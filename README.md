@@ -3,7 +3,7 @@ Repository of all CS Related papers I've read and my thoughts/breakdown of the p
 
 Repository currently includes:
 
-Attention is all you need.
+Attention is all you need. 
 
 U-Net: Convolutional Networks for Biomedical Image Segmentation.
 
