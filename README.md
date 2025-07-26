@@ -9,4 +9,5 @@ U-Net: Convolutional Networks for Biomedical Image Segmentation.
 
 AlphaEvolve: A coding agent for scientific and algorithmic discovery
  
- 
+ The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity.
+
