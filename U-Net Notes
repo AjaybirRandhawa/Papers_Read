@@ -1,0 +1,26 @@
+## What is U-net Architecture?
+
+First a small breakdown of what a CNN and what the goal of U-net is:
+
+The main type of Convolutional Neural Network (CNN) is a sliding window, this is used to interpret what an image means and draw conclusions from it for ML models. It's referenced as a sliding window as it slides across in 3x3 sizes and 'tiles' the image to understand all parts of it. U-net attempts to find a better way to build this image segmentation and inference rather than needing hundreds of labelled reference images.
+
+
+A U-net architecture focuses on pooling/down sampling from the given image to get to a point of classifying individual pixels which is then upscaled through almost identical operators as pooling to rebuild an output segmentation map. This map is then combined with the high resolution features from the contracting side which allows successive convolution layers to assemble a more precise output. Combined the contracting and then expanding path come together in a u shape hence deriving the name of the U-net architecture. The contracting path (encoder) is the typical CNN with repetitive 3x3 convolutions, each followed by a ReLU function and a 2x2 max pooling layer. The expanding path (decoder) upsamples the feature maps using transposed convolutions. At each step in the decoder, feature maps from the encoder are concatenated via skip connections, allowing the network to combine high-level context with fine-grained details. Note: the input image size should consist of even x and y sizes to ensure 2x2  max-pooling operations work correctly. U-Net’s main innovation is the use of skip connections to combine context and detail.
+
+This architecture allows U-net to outperform (at the time's best method) of a sliding window CNN on select datasets.
+
+What problem does U-net attempt to solve:
+
+Often times when building CNN models, it requires extensive labelled training data and that's often times not a possibility simply due to the time it takes to generate or correctly label the training data. Note: the paper focuses more on the unavailability and the applications of U-net in the biomedical field but this principle can be extended to other fields (like geophysics, LIDAR and other applications of motion detection) so I will keep it broad and focus less on the exact details of the biomedical field in this paper writeup.
+
+How does U-net attempt to resolve these issues:
+
+U-Net architecture focuses on using the few images that are present and preforming excessive data augmentation to those images to help the model learn invariance without needing to actually see those images. The paper focuses on data augmentations in terms of microscopic images which includes shift and rotation augmentations but we can extend this view to extremes like horizontal flips (useful for autonomous vehicles for countries that drive on the other side). The paper finds random elastic deformations are key to help train a segmentation network with very few annotated images.
+
+Example:
+
+Imagine you’re a wildlife photographer tasked with mapping out all the rare birds in a nearby rainforest. But you can only look through a small window, a camera with a narrow lens. You walk through the forest, looking through this window, taking one photo at a time. Each photo only shows a tiny patch of the forest floor. To map the whole forest, you must move across the entire forest step by step, taking thousands of photos and stitching them together later. If a bird is right on the edge of your window, you might miss its tail or even miss the bird entirely if it’s split between two photos. This process is slow, repetitive, and sometimes misses the bigger picture (this is in essence how a sliding window CNN works, its best for local focus like taking pictures of a certain area of the forest or bird that you know exists at certain coordinates).
+
+Now, lets use a U-net CNN imagine you have a magical drone. This drone can fly high above the forest and take a huge panoramic photo of the entire area at once. But that’s not all, it also has a zoom lens that can focus in on the tiniest details, like the color of a bird’s feathers or the shape of its beak. The drone first takes a wide shot to understand the overall layout of the forest and seeing where the rivers, clearings, and dense thickets are. Then it zooms in, using the context from the wide shot to help it spot birds even if they’re camouflaged or hiding in tricky spots. The drone can combine the big picture with the fine details, so it never loses track of where it is or what it’s looking at. This might be overkill if you're looking for a local focus of the image only in which case a sliding window would be preferred.
+
+The full paper is included in this repo or can be found here: https://arxiv.org/pdf/1505.04597v1
